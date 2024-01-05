@@ -4,11 +4,27 @@ jobs:
   lint-job:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code
+        run: actions/checkout@v4
+      - name: Install Node JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
       - name: Lint
         run: npm lint
   test-job:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code
+        run: actions/checkout@v4
+      - name: Install Node JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
       - name: Run tests
         run: npm test
   deploy-job:
