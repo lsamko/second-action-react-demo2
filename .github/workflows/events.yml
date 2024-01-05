@@ -4,5 +4,5 @@ jobs:
   lint-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Output Github Context
-        run: echo "${{ toJSON(github) }}"
+      - name: Output Github Event Info
+        run: echo "${{ toJSON(github.event) }}"
