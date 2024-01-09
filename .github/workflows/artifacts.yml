@@ -3,6 +3,8 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.file }}  #https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
     steps:
       - name: Get code
         uses: actions/checkout@v4
@@ -16,6 +18,9 @@ jobs:
         run: npm run lint
       - name: Run tests
         run: npm test
+      - name: Publish file name
+        id: publish
+        run: find dist/*.json -type f -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifact  #https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v4
         with:
@@ -33,6 +38,8 @@ jobs:
           name: dist-files
       - name: Output content
         run: ls
+      - name: Output filenme
+        run: echo "${{ needs.test.outputs.script-file }}" #https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context
       - name: Deploy
         run: echo "Deploying..."
 
