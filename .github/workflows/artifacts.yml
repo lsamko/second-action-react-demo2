@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 18
       - name: Cache dependencies #https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -40,7 +40,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
       - name: Cache dependencies #https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
