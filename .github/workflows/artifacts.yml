@@ -20,7 +20,7 @@ jobs:
         run: npm test
       - name: Publish file name
         id: publish
-        run: find dist-files/*.json -type f -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
+        run: find dist/*.js -type f -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifact  #https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v4
         with:
