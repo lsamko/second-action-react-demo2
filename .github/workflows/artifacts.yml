@@ -22,11 +22,13 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Run tests
+        id: run-tests
         run: npm test
       - name: Publish file name
         id: publish
         run: find dist/*.js -type f -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifact  #https://github.com/actions/upload-artifact
+        if: failure() && steps.run-tests.outcome == 'failure' #https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
@@ -52,7 +54,7 @@ jobs:
           name: dist-files
       - name: Output content
         run: ls
-      - name: Output filenme
+      - name: Output filename
         run: echo "${{ needs.test.outputs.script-file }}" #https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context
       - name: Deploy
         run: echo "Deploying..."
