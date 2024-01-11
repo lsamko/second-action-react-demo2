@@ -28,7 +28,7 @@ jobs:
         id: publish
         run: find dist/*.js -type f -execdir echo 'file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifact  #https://github.com/actions/upload-artifact
-        if: failure() && steps.run-tests.outcome == 'failure' #https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
+        #if: failure() && steps.run-tests.outcome == 'failure' #https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
@@ -66,7 +66,7 @@ jobs:
       - name: Output info
         run: |
           echo "Something went wrong"
-          echo "${{ github }}
+          echo "${{ toJSON(github) }}
           
 
 
